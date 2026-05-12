@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STP dance academy — CUTE &amp; FRIENDLY</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ============================================================
+       CUTE LP — 賑やか・SNS映え・コミュニティ重視
+       白×ピンク×ベージュ、カード密度高め、浮かぶCTA、口コミ
+       ============================================================ */
+    :root {
+      --white:   #ffffff;
+      --bg:      #fff8fb;
+      --bg2:     #fff2f6;
+      --pink:    #e8649a;
+      --pink-d:  #d4527e;
+      --pink-l:  #f7a8c8;
+      --pink-ll: #ffd6e8;
+      --peach:   #fff0e6;
+      --beige:   #fdf5ee;
+      --beige-d: #f0e4d7;
+      --orange:  #f97316;
+      --text:    #3a2030;
+      --muted:   #9a7080;
+      --border:  #f0d4df;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ====== フローティングCTA ====== */
+    .float-cta {
+      position: fixed;
+      bottom: 24px; right: 20px;
+      z-index: 200;
+      background: linear-gradient(135deg, var(--pink), var(--pink-d));
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 13px 22px;
+      border-radius: 50px;
+      box-shadow: 0 6px 24px rgba(232,100,154,0.45);
+      transition: transform 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+    }
+    .float-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(232,100,154,0.5);
+    }
+
+    /* ====== ヘッダー ====== */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,248,251,0.95);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .nav-logo img { height: 34px; object-fit: contain; }
+    .nav-links { display: none; gap: 24px; font-size: 0.82rem; color: var(--muted); }
+    @media (min-width: 680px) {
+      .nav-links { display: flex; }
+      .nav-links a:hover { color: var(--pink); }
+    }
+    .nav-cta {
+      background: var(--pink);
+      color: #fff;
+      padding: 9px 20px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    /* ====== HERO ====== */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 100px 6% 80px;
+    }
+    .hero-studio-bg {
+      position: absolute; inset: 0;
+      background: url('images/cute-hero.jpg') center top/cover no-repeat;
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        100deg,
+        rgba(255,240,248,0.88) 0%,
+        rgba(255,220,238,0.65) 30%,
+        rgba(255,200,228,0.25) 60%,
+        rgba(255,240,248,0.15) 100%
+      );
+      z-index: 1;
+    }
+    /* ダンサービジュアル（左） */
+    .hero-dancer {
+      position: absolute;
+      left: 4%; bottom: 60px;
+      width: 34%; height: 58%;
+      z-index: 2; overflow: hidden;
+      border-radius: 16px;
+    }
+    .hero-dancer::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 150px;
+      background: linear-gradient(270deg, rgba(255,240,248,0.88) 0%, transparent 100%);
+      z-index: 3;
+    }
+    .hero-dancer img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      position: relative; z-index: 1;
+    }
+    .hero-dancer-fallback {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(232,100,154,0.25) 0%, transparent 65%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 8px; z-index: 0;
+    }
+    .hero-dancer-fallback span {
+      font-size: 0.65rem; letter-spacing: 0.18em;
+      color: rgba(180,80,120,0.45);
+      border: 1px dashed rgba(180,80,120,0.3);
+      padding: 6px 16px; border-radius: 4px;
+      background: rgba(255,255,255,0.5);
+    }
+    .hero-dancer-fallback small {
+      font-size: 0.58rem; color: rgba(180,80,120,0.3);
+      font-family: monospace;
+    }
+    /* ヒーローコンテンツ（右） */
+    .hero-content {
+      position: relative; z-index: 3;
+      max-width: 440px; text-align: right;
+    }
+    @media (max-width: 700px) {
+      .hero { align-items: center; justify-content: center; padding: 90px 20px 60px; }
+      .hero-dancer {
+        position: absolute; inset: 0; width: 100%;
+        opacity: 0.22; z-index: 1;
+      }
+      .hero-dancer::after { display: none; }
+      .hero-content { text-align: center; max-width: 100%; }
+    }
+
+    /* 実績バッジ */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 8px 16px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--pink);
+      box-shadow: 0 4px 16px rgba(232,100,154,0.12);
+      margin-bottom: 20px;
+    }
+    .hero-badge .num { font-size: 1.1rem; font-weight: 900; }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 8vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    .hero-title .pink { color: var(--pink); }
+    .hero-title .sub {
+      display: block;
+      font-size: 0.38em;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      margin-top: 12px;
+    }
+    .hero-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.95;
+      margin-bottom: 28px;
+    }
+    .btn-hero {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--pink), var(--pink-d));
+      color: #fff;
+      padding: 15px 40px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      box-shadow: 0 6px 24px rgba(232,100,154,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-hero:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(232,100,154,0.45); }
+
+    /* 浮かぶデコ絵文字 */
+    .deco { position: absolute; pointer-events: none; z-index: 3;
+      animation: float 4s ease-in-out infinite; user-select: none; }
+    .deco-1 { font-size: 1.8rem; top: 20%; left: 52%; animation-delay: 0s; }
+    .deco-2 { font-size: 1.5rem; top: 35%; left: 56%; animation-delay: 1.2s; }
+    .deco-3 { font-size: 1.4rem; bottom: 28%; left: 53%; animation-delay: 0.6s; }
+    @media (max-width: 700px) { .deco { display: none; } }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    /* ====== 数字実績バー ====== */
+    .stats {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 140px;
+      padding: 32px 24px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 900;
+      color: var(--pink);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.06em; }
+
+    /* ====== こんな方に（カラーピル） ====== */
+    .for-you {
+      padding: 72px 24px;
+      background: var(--white);
+      text-align: center;
+    }
+    .for-you-layout {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .for-you-girl {
+      height: 220px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+    @media (max-width: 900px) { .for-you-girl { height: 160px; } }
+    @media (max-width: 640px) { .for-you-girl { display: none; } }
+    .for-you h2 {
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+    .for-you h2 span { color: var(--pink); }
+    .for-you-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 40px; }
+    .pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border: 2px solid transparent;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: default;
+    }
+    .pill:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    .pill-1 { background: var(--pink-ll); color: var(--pink-d); border-color: var(--pink-l); }
+    .pill-2 { background: #fff5e6; color: #c2620a; border-color: #ffd4a0; }
+    .pill-3 { background: #e8f7ee; color: #1a7a45; border-color: #a8dfc0; }
+    .pill-4 { background: #eef3ff; color: #3358d4; border-color: #b0c4f8; }
+    .pill-5 { background: #fef9e8; color: #a07a10; border-color: #f5d878; }
+    .pill-6 { background: #f5eeff; color: #7a32c8; border-color: #d4b0f8; }
+
+    /* ====== 3つのポイント（カラーブロック） ====== */
+    .points {
+      padding: 0 24px 72px;
+      background: var(--white);
+    }
+    .points-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    @media (min-width: 640px) {
+      .points-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .point-block {
+      border-radius: 24px;
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .point-block:hover { transform: translateY(-8px); box-shadow: 0 20px 48px rgba(0,0,0,0.12); }
+    .pb-1 { background: linear-gradient(145deg, #fff0f6, #ffd6e8); }
+    .pb-2 { background: linear-gradient(145deg, #fff8ee, #ffe4c0); }
+    .pb-3 { background: linear-gradient(145deg, #f0f8ff, #d0e8fb); }
+    /* ポイントカード上部写真エリア */
+    .point-photo {
+      width: 100%;
+      height: 260px;
+      overflow: hidden;
+      position: relative;
+    }
+    .point-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 10%;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .point-block:hover .point-photo img { transform: scale(1.04); }
+    /* 写真下端フェード（カード背景色へ自然につなぐ） */
+    .pb-1 .point-photo::after { content:''; position:absolute; bottom:0; left:0; right:0; height:60px; background:linear-gradient(to bottom, transparent, #ffd6e8); }
+    .pb-2 .point-photo::after { content:''; position:absolute; bottom:0; left:0; right:0; height:60px; background:linear-gradient(to bottom, transparent, #ffe4c0); }
+    .pb-3 .point-photo::after { content:''; position:absolute; bottom:0; left:0; right:0; height:60px; background:linear-gradient(to bottom, transparent, #d0e8fb); }
+    .point-body { padding: 24px 24px 32px; }
+    .point-block .point-icon { font-size: 2rem; margin-bottom: 12px; }
+    .point-block .point-num {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      padding: 3px 12px;
+      border-radius: 50px;
+      margin-bottom: 10px;
+    }
+    .pb-1 .point-num { background: var(--pink-ll); color: var(--pink-d); }
+    .pb-2 .point-num { background: #ffe4c0; color: #b56010; }
+    .pb-3 .point-num { background: #d0e8fb; color: #1a60b0; }
+    .point-block h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 10px; }
+    .point-block p  { font-size: 0.82rem; color: var(--muted); line-height: 1.75; }
+
+    /* ====== ジャンルカード ====== */
+    .genres {
+      background: var(--beige);
+      padding: 72px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .genres-layout {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .genres-inner { flex: 1; min-width: 0; }
+    .genres-girl {
+      height: 360px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+    @media (max-width: 900px) { .genres-girl { height: 260px; } }
+    @media (max-width: 640px) { .genres-girl { display: none; } }
+    .genres h2 { font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 900; text-align: center; margin-bottom: 8px; }
+    .genres-sub { text-align: center; font-size: 0.85rem; color: var(--muted); margin-bottom: 36px; }
+    .genre-scroll {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      max-width: 900px;
+      margin: 0 auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .genre-scroll::-webkit-scrollbar { display: none; }
+    .genre-card {
+      flex-shrink: 0;
+      width: 150px;
+      border-radius: 20px;
+      padding: 28px 16px 20px;
+      text-align: center;
+      background: #fff;
+      border: 2px solid transparent;
+      cursor: default;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .genre-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--pink-l);
+      box-shadow: 0 12px 32px rgba(232,100,154,0.14);
+    }
+    .genre-emoji { font-size: 2.4rem; margin-bottom: 10px; }
+    .genre-name  { font-size: 0.88rem; font-weight: 700; }
+    .genre-tag   { font-size: 0.7rem; color: var(--muted); margin-top: 4px; }
+
+    /* ====== 扉フレーム（体験者の声） ====== */
+    .door-peek-wrap {
+      max-width: 680px;
+      margin: 0 auto 52px;
+    }
+    .door-frame {
+      position: relative;
+      border-radius: 52% 52% 12px 12px / 12% 12% 12px 12px;
+      overflow: hidden;
+      border: 14px solid #f5b8ce;
+      box-shadow:
+        0 0 0 4px #e8649a,
+        0 20px 56px rgba(232,100,154,0.28);
+    }
+    .door-frame img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      object-position: center 18%;
+      display: block;
+    }
+    /* 扉の敷居（下端）— 下半身を隠して「のぞき込み」演出 */
+    .door-sill {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 28px;
+      background: #f5b8ce;
+      border-top: 3px solid #e8649a;
+    }
+    /* ドアノブ */
+    .door-handle {
+      position: absolute;
+      bottom: 36px;
+      right: 44px;
+      width: 14px;
+      height: 36px;
+      background: #e8649a;
+      border-radius: 7px;
+      box-shadow: 0 2px 8px rgba(232,100,154,0.5);
+    }
+    .door-handle::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid #e8649a;
+    }
+    /* 扉上部 装飾ライン */
+    .door-frame::before {
+      content: '';
+      position: absolute;
+      top: 10px; left: 10px; right: 10px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* ====== 写真ギャラリー（モザイク） ====== */
+    .gallery {
+      padding: 72px 24px;
+      background: var(--white);
+    }
+    .gallery h2 { text-align: center; font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 900; margin-bottom: 8px; }
+    .gallery-sub { text-align: center; font-size: 0.85rem; color: var(--muted); margin-bottom: 36px; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 160px 160px;
+      gap: 10px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    @media (min-width: 640px) {
+      .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 180px 180px;
+      }
+    }
+    .gallery-cell {
+      border-radius: 16px;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.3s;
+    }
+    .gallery-cell:hover { transform: scale(1.03); }
+    .gc-1 { background: url('images/studio-01.jpeg') center/cover; grid-column: span 2; }
+    .gc-2 { background: url('images/studio-02.JPG') center/cover; }
+    .gc-3 { background: url('images/studio-03.jpeg') center/cover; }
+    .gc-4 { background: url('images/studio-04.JPG') center/cover; grid-column: span 2; }
+    .gallery-cell-inner {
+      width: 100%; height: 100%;
+      background: rgba(232,100,154,0.08);
+      transition: background 0.3s;
+    }
+    .gallery-cell:hover .gallery-cell-inner { background: rgba(232,100,154,0.02); }
+
+    /* ====== 口コミ（吹き出し） ====== */
+    .voices {
+      background: var(--bg2);
+      padding: 72px 24px;
+    }
+    .voices h2 { text-align: center; font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 900; margin-bottom: 8px; }
+    .voices-sub { text-align: center; font-size: 0.85rem; color: var(--muted); margin-bottom: 40px; }
+    .voice-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    @media (min-width: 640px) {
+      .voice-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .voice-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 24px 20px;
+      box-shadow: 0 4px 20px rgba(232,100,154,0.07);
+      border: 1px solid var(--border);
+      position: relative;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .voice-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(232,100,154,0.12); }
+    .voice-card::after {
+      content: '"';
+      position: absolute;
+      top: 10px; right: 16px;
+      font-size: 3rem;
+      color: var(--pink-ll);
+      font-family: serif;
+      line-height: 1;
+    }
+    .voice-stars { color: #f59e0b; font-size: 0.9rem; margin-bottom: 8px; letter-spacing: 2px; }
+    .voice-text { font-size: 0.88rem; line-height: 1.8; color: var(--text); margin-bottom: 14px; }
+    .voice-name { font-size: 0.75rem; color: var(--muted); font-weight: 600; }
+    .voice-tag  {
+      display: inline-block;
+      background: var(--pink-ll);
+      color: var(--pink-d);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 50px;
+      margin-left: 8px;
+    }
+
+    /* ====== ステップ（横タイムライン） ====== */
+    .steps-section {
+      background: var(--white);
+      padding: 72px 24px;
+    }
+    .steps-section h2 { text-align: center; font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 900; margin-bottom: 8px; }
+    .steps-sub { text-align: center; font-size: 0.85rem; color: var(--muted); margin-bottom: 40px; }
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    @media (min-width: 600px) {
+      .timeline { flex-direction: row; gap: 0; align-items: flex-start; }
+    }
+    .tl-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      padding: 0 12px 32px;
+    }
+    @media (max-width: 599px) {
+      .tl-item {
+        flex-direction: row;
+        text-align: left;
+        align-items: flex-start;
+        padding: 0 0 28px 0;
+        gap: 16px;
+      }
+    }
+    .tl-dot {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink), var(--pink-d));
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 900;
+      flex-shrink: 0;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 16px rgba(232,100,154,0.3);
+    }
+    @media (max-width: 599px) { .tl-dot { margin-bottom: 0; } }
+    /* 横ライン */
+    .tl-item::after {
+      content: '';
+      position: absolute;
+      top: 24px; right: -2px;
+      width: 4px; height: 2px;
+      background: var(--pink-ll);
+    }
+    @media (min-width: 600px) {
+      .tl-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 23px; right: 0;
+        width: calc(100% - 48px);
+        height: 2px;
+        background: var(--pink-ll);
+        left: 50%;
+        transform: translateX(24px);
+      }
+    }
+    @media (max-width: 599px) {
+      .tl-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        left: 23px; top: 48px;
+        width: 2px; height: calc(100% - 48px);
+        background: var(--pink-ll);
+      }
+    }
+    .tl-content {}
+    .tl-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; }
+    .tl-desc  { font-size: 0.78rem; color: var(--muted); line-height: 1.65; }
+
+    /* ====== CTA ====== */
+    .cta-section {
+      background: linear-gradient(135deg, #fff0f6 0%, #ffd8e8 50%, #ffbbd3 100%);
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .cta-heart { font-size: 2.4rem; display: block; margin-bottom: 16px;
+      animation: heartbeat 1.5s ease-in-out infinite; }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.14); }
+    }
+    .cta-section h2 {
+      font-size: clamp(1.6rem, 5vw, 2.8rem);
+      font-weight: 900; margin-bottom: 14px; line-height: 1.25;
+    }
+    .cta-section p { font-size: 0.9rem; color: var(--muted); margin-bottom: 32px; line-height: 1.9; }
+    .btn-cta {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--pink), var(--pink-d));
+      color: #fff;
+      padding: 17px 52px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      box-shadow: 0 6px 28px rgba(232,100,154,0.38);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-cta:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(232,100,154,0.45); }
+    .cta-note { font-size: 0.75rem; color: var(--muted); margin-top: 14px; }
+
+    /* ====== フォーム ====== */
+    .contact {
+      background: var(--white);
+      padding: 80px 24px;
+    }
+    .contact-inner { max-width: 560px; margin: 0 auto; }
+    .contact h2 { font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 900; text-align: center; margin-bottom: 6px; }
+    .contact h2 span { color: var(--pink); }
+    .contact-sub { text-align: center; font-size: 0.82rem; color: var(--muted); margin-bottom: 36px; }
+    .field { margin-bottom: 18px; }
+    .field label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; color: var(--muted); }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      background: var(--bg2);
+      border: 2px solid var(--border);
+      color: var(--text);
+      padding: 13px 16px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      border-radius: 12px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 3px rgba(232,100,154,0.14);
+    }
+    .field textarea { resize: vertical; min-height: 90px; }
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--pink), var(--pink-d));
+      color: #fff;
+      border: none;
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(232,100,154,0.3);
+      transition: opacity 0.2s, transform 0.2s;
+      font-family: inherit;
+    }
+    .btn-submit:hover { opacity: 0.88; transform: translateY(-2px); }
+
+    /* ====== フッター ====== */
+    .footer {
+      background: var(--beige-d);
+      border-top: 1px solid var(--border);
+      padding: 36px 24px;
+      text-align: center;
+    }
+    .footer-logo { display: flex; justify-content: center; margin-bottom: 16px; }
+    .footer-logo img { height: 30px; object-fit: contain; }
+    .footer-nav { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; }
+    .footer-nav a { font-size: 0.78rem; color: var(--muted); transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--pink); }
+    .footer-copy { font-size: 0.72rem; color: var(--muted); opacity: 0.5; }
+
+    /* 戻るリンク */
+    .back-link {
+      position: fixed; bottom: 20px; left: 20px; z-index: 99;
+      background: rgba(255,255,255,0.93);
+      border: 1px solid var(--border);
+      color: var(--muted); font-size: 0.72rem;
+      padding: 8px 16px; border-radius: 50px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--pink); }
+
+    /* reveal */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.active { opacity: 1; transform: none; }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .section-title { font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 900; text-align: center; margin-bottom: 8px; }
+    .section-sub { text-align: center; font-size: 0.82rem; color: var(--muted); margin-bottom: 36px; letter-spacing: 0.08em; }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="back-link">← 提案TOPへ</a>
+  <a href="#contact" class="float-cta">💗 無料体験を予約する</a>
+
+  <!-- ナビ -->
+  <nav class="nav">
+    <div class="nav-logo"><span style="font-size:1.05rem; font-weight:900; color:#b91c4a; letter-spacing:0.04em;">STP dance academy</span></div>
+    <div class="nav-links">
+      <a href="#for-you">こんな方に</a>
+      <a href="#genres">コース</a>
+      <a href="#voices">口コミ</a>
+      <a href="#contact">無料体験</a>
+    </div>
+    <a href="#contact" class="nav-cta">無料体験 ♡</a>
+  </nav>
+
+  <!-- ヒーロー -->
+  <section class="hero" id="hero">
+    <div class="hero-studio-bg"></div>
+    <div class="hero-overlay"></div>
+
+
+    <!-- ▼ 実写写真を挿入してください（ダンサー・人物写真） ▼ -->
+    <div style="position:absolute;left:4%;top:50%;transform:translateY(-50%);width:220px;height:280px;border:2px dashed rgba(232,100,154,0.5);border-radius:16px;background:rgba(255,255,255,0.18);backdrop-filter:blur(4px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;z-index:3;">
+      <span style="font-size:2rem;opacity:0.35;">📷</span>
+      <span style="font-size:0.82rem;letter-spacing:0.18em;color:#e8649a;font-weight:800;">実写写真 挿入</span>
+      <span style="font-size:0.62rem;color:rgba(232,100,154,0.55);letter-spacing:0.1em;">ダンサー・人物写真</span>
+    </div>
+    <!-- ▲ 実写写真挿入ここまで ▲ -->
+
+    <span class="deco deco-1">🌸</span>
+    <span class="deco deco-2">💃</span>
+    <span class="deco deco-3">✨</span>
+
+    <div class="hero-content">
+      <div class="hero-badge reveal" style="display:flex; flex-direction:column; gap:4px; align-items:flex-start;">
+        <span style="font-size:0.62rem; letter-spacing:0.18em; opacity:0.7;">STP = START TO PRO</span>
+        <span style="display:flex; align-items:center; gap:6px;"><span>🏆</span><span>体験者数 <span class="num">500+</span> 名</span></span>
+      </div>
+      <h1 class="hero-title reveal delay-1">
+        <span class="pink">踊る</span>って、<br>こんなに<br>楽しい！
+        <span class="sub">K-POP・HIPHOP 初心者大歓迎</span>
+      </h1>
+      <p class="hero-desc reveal delay-2">
+        自分のペースで、好きな時間に。<br>
+        仲間と一緒に上達できるダンスアカデミー。
+      </p>
+      <a href="#contact" class="btn-hero reveal delay-3">無料体験を予約する ♡</a>
+    </div>
+  </section>
+
+  <!-- 実績バー -->
+  <div class="stats">
+    <div class="stat-item reveal">
+      <div class="stat-num">500<span style="font-size:0.5em">名+</span></div>
+      <div class="stat-label">累計体験者数</div>
+    </div>
+    <div class="stat-item reveal delay-1">
+      <div class="stat-num">4<span style="font-size:0.5em">ジャンル</span></div>
+      <div class="stat-label">コース数</div>
+    </div>
+    <div class="stat-item reveal delay-2">
+      <div class="stat-num">24<span style="font-size:0.5em">h</span></div>
+      <div class="stat-label">スタジオ利用</div>
+    </div>
+    <div class="stat-item reveal delay-3">
+      <div class="stat-num">無料</div>
+      <div class="stat-label">初回体験</div>
+    </div>
+  </div>
+
+  <!-- こんな方に -->
+  <section class="for-you" id="for-you">
+    <h2 class="reveal">こんな方に<span>ぴったり</span>！</h2>
+    <p class="for-you-sub reveal delay-1">当てはまったら、まずは無料体験から♪</p>
+    <div class="pill-grid">
+      <span class="pill pill-1 reveal delay-1">💕 K-POPが大好き</span>
+      <span class="pill pill-2 reveal delay-1">🔥 運動不足を解消したい</span>
+      <span class="pill pill-3 reveal delay-2">🌱 ダンスはじめてみたい</span>
+      <span class="pill pill-4 reveal delay-2">🌙 自分の時間を楽しみたい</span>
+      <span class="pill pill-5 reveal delay-3">👧 子供と一緒に習いたい</span>
+      <span class="pill pill-6 reveal delay-3">💜 新しい趣味を探してる</span>
+    </div>
+  </section>
+
+  <!-- 3つのポイント -->
+  <section style="padding: 0 24px 72px; background: var(--white);">
+    <h2 class="section-title reveal">STPの<span style="color:var(--pink)">3つ</span>のうれしいポイント</h2>
+    <p class="section-sub reveal delay-1">だから選ばれています</p>
+    <div class="points-grid">
+      <div class="point-block pb-1 reveal delay-1">
+        <div class="point-photo">
+          <img src="images/point-girl-left.png" alt="ダンス体験者" style="object-position: center 10%;">
+        </div>
+        <div class="point-body">
+          <div class="point-icon">🔑</div>
+          <div class="point-num">POINT 01</div>
+          <h3>無人スタジオで<br>緊張ゼロ</h3>
+          <p>他の人の目が気にならない完全予約制。スマホで予約→入室まで完結。</p>
+        </div>
+      </div>
+      <div class="point-block pb-2 reveal delay-2">
+        <div class="point-photo">
+          <img src="images/point-girl-center.png" alt="ダンス体験者" style="object-position: center 10%;">
+        </div>
+        <div class="point-body">
+          <div class="point-icon">💃</div>
+          <div class="point-num">POINT 02</div>
+          <h3>人気のK-POP・<br>HIPHOPが習える</h3>
+          <p>流行りのダンスをしっかり学べる。好きなジャンルからスタートOK。</p>
+        </div>
+      </div>
+      <div class="point-block pb-3 reveal delay-3">
+        <div class="point-photo">
+          <img src="images/point-girl-right.png" alt="ダンス体験者" style="object-position: center 10%;">
+        </div>
+        <div class="point-body">
+          <div class="point-icon">🎁</div>
+          <div class="point-num">POINT 03</div>
+          <h3>まず無料体験<br>できる</h3>
+          <p>入会前に体験OK。「合わなかった…」の心配なし。気軽に試せます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ジャンル -->
+  <section class="genres" id="genres">
+    <h2 class="reveal">コース一覧</h2>
+    <p class="genres-sub reveal delay-1">← スワイプして確認 →</p>
+    <div class="genre-scroll">
+      <div class="genre-card reveal delay-1">
+        <div class="genre-emoji">💃</div>
+        <div class="genre-name">K-POP</div>
+        <div class="genre-tag">人気No.1</div>
+      </div>
+      <div class="genre-card reveal delay-2">
+        <div class="genre-emoji">🎤</div>
+        <div class="genre-name">HIPHOP</div>
+        <div class="genre-tag">かっこいい系</div>
+      </div>
+      <div class="genre-card reveal delay-3">
+        <div class="genre-emoji">👧</div>
+        <div class="genre-name">キッズ</div>
+        <div class="genre-tag">子ども向け</div>
+      </div>
+      <div class="genre-card reveal delay-1">
+        <div class="genre-emoji">🌸</div>
+        <div class="genre-name">女性向け</div>
+        <div class="genre-tag">女性限定</div>
+      </div>
+      <div class="genre-card reveal delay-2">
+        <div class="genre-emoji">✨</div>
+        <div class="genre-name">無料体験</div>
+        <div class="genre-tag">まずここから</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- スタジオギャラリー -->
+  <section class="gallery">
+    <h2 class="reveal">スタジオギャラリー</h2>
+    <p class="gallery-sub reveal delay-1">実際のスタジオをのぞいてみよう</p>
+    <div class="gallery-grid">
+      <div class="gallery-cell gc-1"><div class="gallery-cell-inner"></div></div>
+      <div class="gallery-cell gc-2"><div class="gallery-cell-inner"></div></div>
+      <div class="gallery-cell gc-3"><div class="gallery-cell-inner"></div></div>
+      <div class="gallery-cell gc-4"><div class="gallery-cell-inner"></div></div>
+    </div>
+  </section>
+
+  <!-- 口コミ -->
+  <section class="voices" id="voices">
+    <h2 class="reveal">体験者の声</h2>
+    <p class="voices-sub reveal delay-1">実際に体験してくれた方からのコメント</p>
+
+    <!-- 扉フレーム — 4人がのぞき込む構図 -->
+    <div class="door-peek-wrap reveal">
+      <div class="door-frame">
+        <img src="images/cute-group.png" alt="STP体験者たち">
+        <div class="door-sill"></div>
+        <div class="door-handle"></div>
+      </div>
+    </div>
+    <div class="voice-grid">
+      <div class="voice-card reveal delay-1">
+        <div class="voice-stars">★★★★★</div>
+        <p class="voice-text">初めてのダンスだったけど、無人スタジオだから恥ずかしくなく練習できました！K-POPが大好きで、楽しすぎて毎週通ってます。</p>
+        <div class="voice-name">20代女性 <span class="voice-tag">K-POP</span></div>
+      </div>
+      <div class="voice-card reveal delay-2">
+        <div class="voice-stars">★★★★★</div>
+        <p class="voice-text">娘と一緒にキッズコースを体験。先生も優しく、雰囲気がとても良かったです。予約も簡単で続けやすい！</p>
+        <div class="voice-name">30代ママ <span class="voice-tag">キッズ</span></div>
+      </div>
+      <div class="voice-card reveal delay-1">
+        <div class="voice-stars">★★★★☆</div>
+        <p class="voice-text">仕事帰りに気軽に寄れるのが最高。完全予約制で自分のペースで通えて、ストレス解消にもなってます！</p>
+        <div class="voice-name">20代女性 <span class="voice-tag">HIPHOP</span></div>
+      </div>
+      <div class="voice-card reveal delay-2">
+        <div class="voice-stars">★★★★★</div>
+        <p class="voice-text">スマロックで入れるから手続きが楽。無料体験で迷ったけど入会してよかった！踊るのこんなに楽しいとは思わなかった。</p>
+        <div class="voice-name">25歳 <span class="voice-tag">K-POP</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ステップ -->
+  <section class="steps-section" id="steps">
+    <h2 class="section-title reveal">入会の流れ</h2>
+    <p class="section-sub reveal delay-1">かんたん4ステップ♪</p>
+    <div class="timeline">
+      <div class="tl-item reveal delay-1">
+        <div class="tl-dot">1</div>
+        <div class="tl-content">
+          <p class="tl-title">無料体験を申込</p>
+          <p class="tl-desc">フォームから24時間受付</p>
+        </div>
+      </div>
+      <div class="tl-item reveal delay-2">
+        <div class="tl-dot">2</div>
+        <div class="tl-content">
+          <p class="tl-title">QRコードが届く</p>
+          <p class="tl-desc">メールで確認&入室コード</p>
+        </div>
+      </div>
+      <div class="tl-item reveal delay-3">
+        <div class="tl-dot">3</div>
+        <div class="tl-content">
+          <p class="tl-title">体験レッスン</p>
+          <p class="tl-desc">動きやすい服装でOK</p>
+        </div>
+      </div>
+      <div class="tl-item reveal delay-3">
+        <div class="tl-dot">4</div>
+        <div class="tl-content">
+          <p class="tl-title">入会手続き</p>
+          <p class="tl-desc">オンラインで完結</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="cta">
+    <span class="cta-heart reveal">💗</span>
+    <h2 class="reveal delay-1">まずは無料体験から<br>始めてみませんか？</h2>
+    <p class="reveal delay-2">「踊れるかな…」の不安、一緒に解消しましょう。<br>無料体験はいつでもお申し込みいただけます。</p>
+    <a href="#contact" class="btn-cta reveal delay-3">無料体験を予約する ♡</a>
+    <p class="cta-note reveal delay-3">入会強制なし · しつこい勧誘なし · 完全無料</p>
+  </section>
+
+  <!-- フォーム -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <h2 class="reveal">お問い合わせ<span>・</span>無料体験</h2>
+      <p class="contact-sub reveal delay-1">気軽にご連絡ください♪</p>
+      <form class="contact-form">
+        <div class="field reveal delay-1">
+          <label>お名前</label>
+          <input type="text" placeholder="山田 花子">
+        </div>
+        <div class="field reveal delay-2">
+          <label>メールアドレス</label>
+          <input type="email" placeholder="example@email.com">
+        </div>
+        <div class="field reveal delay-2">
+          <label>電話番号</label>
+          <input type="tel" placeholder="090-0000-0000">
+        </div>
+        <div class="field reveal delay-3">
+          <label>ご希望のコース</label>
+          <select>
+            <option value="">選択してください（わからなくてもOK）</option>
+            <option>K-POP</option>
+            <option>HIPHOP</option>
+            <option>キッズ</option>
+            <option>女性向けコース</option>
+            <option>まだ決めていない</option>
+          </select>
+        </div>
+        <div class="field reveal delay-3">
+          <label>メッセージ</label>
+          <textarea placeholder="不安なこと・気になることなど何でも♪"></textarea>
+        </div>
+        <button type="submit" class="btn-submit reveal delay-3">送信する ♡</button>
+        <p style="text-align:center; font-size:0.72rem; color:var(--muted); margin-top:10px;">
+          ※ デモフォームです。送信されません。
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer class="footer">
+    <div class="footer-logo"><span style="font-size:1.1rem; font-weight:900; color:#b91c4a; letter-spacing:0.04em;">STP dance academy</span></div>
+    <nav class="footer-nav">
+      <a href="#for-you">こんな方に</a>
+      <a href="#genres">コース</a>
+      <a href="#voices">口コミ</a>
+      <a href="#steps">入会の流れ</a>
+      <a href="#contact">無料体験</a>
+    </nav>
+    <p style="font-size:0.72rem; color:var(--muted); opacity:0.6; margin-bottom:6px; letter-spacing:0.14em;">STP = START TO PRO — "始めたい"を"できる"に変える</p>
+    <p class="footer-copy">© 2025 STP dance academy. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => obs.observe(el));
+
+    document.querySelector('.contact-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const btn = e.target.querySelector('.btn-submit');
+      btn.textContent = '送信しました ♡'; btn.disabled = true;
+    });
+  </script>
+</body>
+</html>

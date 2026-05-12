@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STP dance academy — はじめてでも大丈夫</title>
+  <style>
+    /* ============================================================
+       BEGINNER LP — インフォメーション型 / 不安解消特化
+       Start to Pro — "始めたい"を"できる"に変える
+       ============================================================ */
+    :root {
+      --white:   #ffffff;
+      --bg:      #f5f9fe;
+      --bg2:     #eaf3fb;
+      --blue:    #1f6fbf;
+      --blue-l:  #4d9bd6;
+      --blue-ll: #d0e8fb;
+      --blue-d:  #164f8a;
+      --teal:    #0891b2;
+      --text:    #162033;
+      --muted:   #5d7a96;
+      --border:  #cde0f4;
+      --green:   #16a34a;
+      --green-l: #dcfce7;
+      --yellow:  #d97706;
+      --yellow-l:#fef3c7;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ---- ボタン ---- */
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+    .btn-lg { padding: 16px 36px; font-size: 1rem; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--blue-d));
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(31,111,191,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(31,111,191,0.38); }
+    .btn-white { background: #fff; color: var(--blue); font-weight: 800; }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.14); }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--border);
+      color: var(--blue);
+    }
+    .btn-outline:hover { border-color: var(--blue-l); background: var(--bg2); }
+
+    /* ---- セクション共通 ---- */
+    .section { padding: 88px 24px; }
+    .section-inner { max-width: 860px; margin: 0 auto; }
+    .section-inner-wide { max-width: 1100px; margin: 0 auto; }
+    .sec-label {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 0.26em;
+      font-weight: 700;
+      color: var(--blue);
+      background: var(--blue-ll);
+      padding: 5px 14px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+    }
+    .sec-title {
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+    .sec-sub {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ---- アニメーション ---- */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.active { opacity: 1; transform: none; }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+
+    /* ================================================
+       ヘッダー
+    ================================================ */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 64px;
+      background: rgba(255,255,255,0.96);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      transition: box-shadow 0.3s;
+    }
+    .site-header.scrolled { box-shadow: 0 2px 20px rgba(31,111,191,0.1); }
+    .logo img { height: 36px; width: auto; object-fit: contain; }
+    .nav-links { display: none; gap: 28px; font-size: 0.83rem; color: var(--muted); }
+    .nav-links a { transition: color 0.2s; }
+    .nav-links a:hover { color: var(--blue); }
+    @media (min-width: 680px) { .nav-links { display: flex; } }
+    .btn-header { background: var(--blue); color: #fff; padding: 8px 18px; font-size: 0.82rem; border-radius: 6px; font-weight: 700; }
+
+    /* ================================================
+       ヒーロー — STP = Start to Pro キャッチ
+    ================================================ */
+    .hero {
+      min-height: 100svh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 100px 6% 80px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('images/studio-04.JPG') center/cover no-repeat;
+      filter: brightness(0.55) saturate(0.7);
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        rgba(15,35,75,0.92) 0%,
+        rgba(22,60,120,0.80) 40%,
+        rgba(31,111,191,0.30) 70%,
+        transparent 100%
+      );
+      z-index: 1;
+    }
+    /* 斜めストライプ装飾 */
+    .hero-stripe {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -55deg,
+        transparent,
+        transparent 60px,
+        rgba(255,255,255,0.015) 60px,
+        rgba(255,255,255,0.015) 61px
+      );
+      z-index: 2;
+      pointer-events: none;
+    }
+    /* STP 大文字 ウォーターマーク */
+    .hero-watermark {
+      position: absolute;
+      right: -2%;
+      bottom: -4%;
+      font-size: clamp(14rem, 30vw, 26rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+      z-index: 2;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 640px;
+    }
+    .hero-stp-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.22);
+      backdrop-filter: blur(8px);
+      color: rgba(255,255,255,0.9);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      font-weight: 700;
+      padding: 7px 18px;
+      border-radius: 4px;
+      margin-bottom: 28px;
+    }
+    .hero-stp-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue-l); }
+    .hero-title {
+      font-size: clamp(2.4rem, 9vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+    .hero-title .accent { color: #60b3f5; }
+    .hero-title .small-block {
+      display: block;
+      font-size: 0.34em;
+      font-weight: 600;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.08em;
+      margin-top: 14px;
+    }
+    .hero-tagline {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.85;
+      margin-bottom: 36px;
+      max-width: 460px;
+    }
+    .hero-tagline strong { color: #fff; }
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 44px;
+    }
+    /* チェック信頼バッジ */
+    .hero-checks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 22px;
+    }
+    .hero-check {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.82rem;
+    }
+    .hero-check .ck {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      font-size: 0.6rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    /* 下部ウェーブ */
+    .hero-wave {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 80px;
+      background: var(--white);
+      clip-path: ellipse(70% 100% at 50% 100%);
+      z-index: 3;
+    }
+
+    /* ================================================
+       STP = Start to Pro 説明帯
+    ================================================ */
+    .stp-band {
+      background: var(--blue);
+      padding: 56px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .stp-band::before {
+      content: 'S T P';
+      position: absolute;
+      right: 4%;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: clamp(5rem, 18vw, 13rem);
+      font-weight: 900;
+      color: rgba(255,255,255,0.06);
+      letter-spacing: 0.15em;
+      pointer-events: none;
+      user-select: none;
+    }
+    .stp-band-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .stp-letters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 40px;
+      margin-bottom: 28px;
+    }
+    .stp-letter-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .stp-letter {
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-weight: 900;
+      color: rgba(255,255,255,0.25);
+      line-height: 1;
+      width: 60px;
+      flex-shrink: 0;
+    }
+    .stp-letter-text { color: #fff; }
+    .stp-letter-text .en {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.55);
+      display: block;
+      margin-bottom: 2px;
+    }
+    .stp-letter-text .ja {
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      font-weight: 800;
+    }
+    .stp-catchline {
+      font-size: clamp(1.1rem, 3.5vw, 1.7rem);
+      font-weight: 900;
+      color: #fff;
+      border-left: 4px solid rgba(255,255,255,0.35);
+      padding-left: 18px;
+      line-height: 1.4;
+    }
+    .stp-catchline span { color: #93c5fd; }
+
+    /* ================================================
+       あなたの不安に答えます（Q&A 直接回答）
+    ================================================ */
+    .anxiety-section {
+      background: var(--white);
+    }
+    .anxiety-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 48px;
+    }
+    @media (min-width: 680px) {
+      .anxiety-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .anxiety-card {
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .anxiety-card:hover { box-shadow: 0 10px 32px rgba(31,111,191,0.1); transform: translateY(-4px); }
+    .anxiety-q {
+      background: var(--bg2);
+      padding: 18px 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .anxiety-q-icon {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--blue-ll);
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .anxiety-q-text {
+      font-size: 0.92rem;
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--text);
+    }
+    .anxiety-a {
+      background: #fff;
+      padding: 18px 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .anxiety-a-icon {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--green-l);
+      color: var(--green);
+      font-size: 0.82rem;
+      font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .anxiety-a-text {
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .anxiety-a-text strong { color: var(--text); }
+
+    /* ================================================
+       スタジオ写真フルバナー
+    ================================================ */
+    .studio-banner {
+      height: 340px;
+      position: relative;
+      overflow: hidden;
+      background: url('images/studio-02.JPG') center 35%/cover no-repeat;
+    }
+    .studio-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(15,35,75,0.75) 0%, rgba(15,35,75,0.4) 50%, rgba(15,35,75,0.65) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .studio-banner-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.32em;
+      color: rgba(255,255,255,0.45);
+    }
+    .studio-banner-name {
+      font-size: clamp(1.2rem, 4vw, 2rem);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.14em;
+    }
+    .studio-banner-sub {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.1em;
+    }
+
+    /* ================================================
+       はじめてでも大丈夫な理由（チェックリスト型）
+    ================================================ */
+    .reasons-section {
+      background: var(--bg);
+    }
+    .reasons-list {
+      margin-top: 48px;
+      display: grid;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .reason-row {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      align-items: stretch;
+      border-bottom: 1px solid var(--border);
+      background: #fff;
+      transition: background 0.2s;
+    }
+    .reason-row:last-child { border-bottom: none; }
+    .reason-row:hover { background: var(--bg2); }
+    .reason-num-col {
+      background: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      writing-mode: vertical-lr;
+      padding: 18px 0;
+    }
+    .reason-body {
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .reason-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+    .reason-text h3 { font-size: 0.96rem; font-weight: 800; margin-bottom: 4px; }
+    .reason-text p  { font-size: 0.82rem; color: var(--muted); line-height: 1.75; }
+
+    /* ================================================
+       STARTまでの流れ（詳細ステップ）
+    ================================================ */
+    .flow-section {
+      background: var(--white);
+    }
+    .flow-timeline {
+      margin-top: 52px;
+      position: relative;
+    }
+    .flow-timeline::before {
+      content: '';
+      position: absolute;
+      left: 32px;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+    @media (min-width: 680px) {
+      .flow-timeline::before { left: 40px; }
+    }
+    .flow-step {
+      position: relative;
+      padding-left: 84px;
+      padding-bottom: 48px;
+    }
+    .flow-step:last-child { padding-bottom: 0; }
+    .flow-step-dot {
+      position: absolute;
+      left: 16px;
+      top: 0;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1;
+      box-shadow: 0 0 0 4px rgba(31,111,191,0.15);
+    }
+    @media (min-width: 680px) {
+      .flow-step { padding-left: 100px; }
+      .flow-step-dot { left: 24px; width: 34px; height: 34px; }
+    }
+    .flow-step-time {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      color: var(--blue-l);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .flow-step-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .flow-step-desc {
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .flow-step-note {
+      margin-top: 10px;
+      background: var(--yellow-l);
+      border-left: 3px solid var(--yellow);
+      padding: 9px 14px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.8rem;
+      color: #92400e;
+      line-height: 1.65;
+    }
+    .flow-step-safe {
+      margin-top: 10px;
+      background: var(--green-l);
+      border-left: 3px solid var(--green);
+      padding: 9px 14px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.8rem;
+      color: #14532d;
+      line-height: 1.65;
+    }
+
+    /* ================================================
+       コース・料金（テーブル型）
+    ================================================ */
+    .courses-section {
+      background: var(--bg);
+    }
+    .courses-table-wrap {
+      margin-top: 48px;
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 16px rgba(31,111,191,0.06);
+    }
+    .courses-table {
+      width: 100%;
+      min-width: 520px;
+      border-collapse: collapse;
+      background: #fff;
+    }
+    .courses-table thead th {
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      padding: 14px 16px;
+      text-align: left;
+    }
+    .courses-table thead th:first-child { border-radius: 14px 0 0 0; }
+    .courses-table thead th:last-child { border-radius: 0 14px 0 0; }
+    .courses-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.2s; }
+    .courses-table tbody tr:last-child { border-bottom: none; }
+    .courses-table tbody tr:hover { background: var(--bg2); }
+    .courses-table td { padding: 16px; font-size: 0.88rem; color: var(--text); vertical-align: middle; }
+    .course-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .badge-beginner { background: var(--green-l); color: var(--green); }
+    .badge-all      { background: var(--blue-ll); color: var(--blue); }
+    .badge-kids     { background: var(--yellow-l); color: var(--yellow); }
+
+    /* ================================================
+       FAQ（アコーディオン・詳細型）
+    ================================================ */
+    .faq-section {
+      background: var(--white);
+    }
+    .faq-list {
+      margin-top: 48px;
+      display: grid;
+      gap: 12px;
+    }
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff;
+      transition: box-shadow 0.3s;
+    }
+    .faq-item.open { box-shadow: 0 6px 24px rgba(31,111,191,0.1); }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 18px 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      text-align: left;
+    }
+    .faq-q-badge {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      background: var(--blue-ll);
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .faq-item.open .faq-q-badge { background: var(--blue); color: #fff; }
+    .faq-q-text {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+      flex: 1;
+      line-height: 1.5;
+    }
+    .faq-toggle {
+      width: 24px; height: 24px;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1;
+      flex-shrink: 0;
+      transition: all 0.3s;
+      margin-top: 1px;
+    }
+    .faq-item.open .faq-toggle { border-color: var(--blue); color: var(--blue); transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .faq-answer-inner {
+      padding: 0 22px 20px 64px;
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    /* ================================================
+       無料体験 CTA
+    ================================================ */
+    .cta-section {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-d) 100%);
+      padding: 88px 24px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .cta-section::before {
+      content: 'START';
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(10rem, 28vw, 20rem);
+      font-weight: 900;
+      color: rgba(255,255,255,0.04);
+      letter-spacing: -0.04em;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .cta-inner { position: relative; z-index: 1; max-width: 580px; margin: 0 auto; }
+    .cta-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      font-weight: 700;
+      padding: 6px 18px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.25);
+      margin-bottom: 22px;
+    }
+    .cta-title {
+      font-size: clamp(1.6rem, 5vw, 2.6rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 18px;
+      letter-spacing: 0.02em;
+    }
+    .cta-title .accent { color: #93c5fd; }
+    .cta-sub {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.85;
+      margin-bottom: 36px;
+    }
+    .cta-guarantee {
+      margin-top: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.7);
+      font-size: 0.78rem;
+      padding: 8px 18px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    /* ================================================
+       フォーム
+    ================================================ */
+    .form-section {
+      background: var(--bg);
+      padding: 88px 24px;
+    }
+    .form-wrap {
+      max-width: 540px;
+      margin: 40px auto 0;
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px 32px;
+      box-shadow: 0 4px 32px rgba(31,111,191,0.08);
+      border: 1px solid var(--border);
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .form-group label .req { color: var(--blue); margin-left: 4px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      color: var(--text);
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(31,111,191,0.12);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--blue), var(--blue-d));
+      color: #fff;
+      font-size: 1rem;
+      padding: 16px;
+      border-radius: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 6px 24px rgba(31,111,191,0.3);
+      transition: all 0.25s;
+      margin-top: 8px;
+    }
+    .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(31,111,191,0.35); }
+    .form-note {
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 14px;
+      line-height: 1.7;
+    }
+
+    /* ================================================
+       フッター
+    ================================================ */
+    .site-footer {
+      background: var(--text);
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .footer-logo { color: rgba(255,255,255,0.7); font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
+    .footer-stp { color: rgba(255,255,255,0.35); font-size: 0.72rem; letter-spacing: 0.18em; margin-bottom: 6px; }
+    .footer-copy { color: rgba(255,255,255,0.3); font-size: 0.7rem; }
+
+    /* ================================================
+       戻るリンク（固定）
+    ================================================ */
+    .back-link {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 200;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.75rem;
+      padding: 8px 16px;
+      border-radius: 50px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .back-link:hover { color: var(--blue); border-color: var(--blue-l); }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="back-link">← 提案TOPへ</a>
+
+  <!-- ヘッダー -->
+  <header class="site-header" id="header">
+    <div class="logo">
+      <span style="font-size:1.05rem; font-weight:900; color:#b91c4a; letter-spacing:0.04em;">STP dance academy</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#anxiety">不安解消</a>
+      <a href="#flow">入会の流れ</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">無料体験</a>
+    </nav>
+    <a href="#contact" class="btn btn-header">無料体験</a>
+  </header>
+
+  <!-- ヒーロー -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-stripe"></div>
+    <div class="hero-watermark">STP</div>
+    <div class="hero-wave"></div>
+
+    <div class="hero-content">
+      <div class="hero-stp-badge reveal">
+        <span class="dot"></span>
+        STP = START TO PRO
+      </div>
+      <h1 class="hero-title reveal delay-1">
+        "始めたい"を<br><span class="accent">できる</span>に変える。
+        <span class="small-block">ダンス未経験からのスタートを、全力でサポートします。</span>
+      </h1>
+      <p class="hero-tagline reveal delay-2">
+        「踊れるか不安」「運動苦手」「一人で大丈夫？」<br>
+        <strong>すべての不安に答えます。</strong><br>
+        STPは初心者のために設計されたスタジオです。
+      </p>
+      <div class="hero-cta-row reveal delay-3">
+        <a href="#contact" class="btn btn-primary btn-lg">無料体験を予約する</a>
+        <a href="#anxiety" class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,0.3); color:#fff;">不安を解消する →</a>
+      </div>
+      <div class="hero-checks reveal delay-4">
+        <div class="hero-check"><span class="ck">✓</span>ダンス未経験OK</div>
+        <div class="hero-check"><span class="ck">✓</span>完全無人スタジオ</div>
+        <div class="hero-check"><span class="ck">✓</span>無料体験あり</div>
+        <div class="hero-check"><span class="ck">✓</span>勧誘一切なし</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STP = Start to Pro 説明帯 -->
+  <section class="stp-band">
+    <div class="stp-band-inner">
+      <div class="stp-letters reveal">
+        <div class="stp-letter-item">
+          <span class="stp-letter">S</span>
+          <div class="stp-letter-text">
+            <span class="en">START</span>
+            <span class="ja">始める</span>
+          </div>
+        </div>
+        <div class="stp-letter-item">
+          <span class="stp-letter">T</span>
+          <div class="stp-letter-text">
+            <span class="en">TO</span>
+            <span class="ja">向かって</span>
+          </div>
+        </div>
+        <div class="stp-letter-item">
+          <span class="stp-letter">P</span>
+          <div class="stp-letter-text">
+            <span class="en">PRO</span>
+            <span class="ja">上達する</span>
+          </div>
+        </div>
+      </div>
+      <p class="stp-catchline reveal delay-2">
+        "始めたい"という気持ちを<span>行動</span>に変え、<br>
+        一歩ずつ<span>できる</span>に変えていくのがSTPです。
+      </p>
+    </div>
+  </section>
+
+  <!-- あなたの不安に答えます -->
+  <section class="anxiety-section section" id="anxiety">
+    <div class="section-inner">
+      <span class="sec-label reveal">ANXIETY → ANSWER</span>
+      <h2 class="sec-title reveal delay-1">あなたの不安に、<br>直接答えます。</h2>
+      <p class="sec-sub reveal delay-2">
+        初めての方からよくいただく「不安」を全部集めました。<br>
+        1つひとつ、正直にお答えします。
+      </p>
+
+      <div class="anxiety-grid">
+        <div class="anxiety-card reveal delay-1">
+          <div class="anxiety-q">
+            <div class="anxiety-q-icon">Q</div>
+            <p class="anxiety-q-text">ダンスが完全にはじめてでも入れますか？リズム感も自信なくて…</p>
+          </div>
+          <div class="anxiety-a">
+            <div class="anxiety-a-icon">A</div>
+            <p class="anxiety-a-text"><strong>もちろんです。</strong>STPは「完全未経験から始める人」のために設計されています。リズム感は練習で育ちます。まず始めることが一番大事です。</p>
+          </div>
+        </div>
+
+        <div class="anxiety-card reveal delay-2">
+          <div class="anxiety-q">
+            <div class="anxiety-q-icon">Q</div>
+            <p class="anxiety-q-text">一人で行って大丈夫ですか？人の目が気になります。</p>
+          </div>
+          <div class="anxiety-a">
+            <div class="anxiety-a-icon">A</div>
+            <p class="anxiety-a-text"><strong>完全無人スタジオ</strong>なので他の生徒さんと鉢合わせしません。予約制で時間をずらしているため、プライベートな空間で練習できます。</p>
+          </div>
+        </div>
+
+        <div class="anxiety-card reveal delay-3">
+          <div class="anxiety-q">
+            <div class="anxiety-q-icon">Q</div>
+            <p class="anxiety-q-text">運動が苦手で体が硬いのですが、ついていけますか？</p>
+          </div>
+          <div class="anxiety-a">
+            <div class="anxiety-a-icon">A</div>
+            <p class="anxiety-a-text">問題ありません。<strong>自分のペースで進められる</strong>ので、インストラクターのスピードに合わせる必要がありません。柔軟性はゆっくり育てられます。</p>
+          </div>
+        </div>
+
+        <div class="anxiety-card reveal delay-4">
+          <div class="anxiety-q">
+            <div class="anxiety-q-icon">Q</div>
+            <p class="anxiety-q-text">体験後に強引な勧誘はありますか？入会を迫られませんか？</p>
+          </div>
+          <div class="anxiety-a">
+            <div class="anxiety-a-icon">A</div>
+            <p class="anxiety-a-text"><strong>一切ありません。</strong>無人システムのため、スタッフから直接声をかけられることもありません。入会はあなたのタイミングで、完全オンラインで完結します。</p>
+          </div>
+        </div>
+
+        <div class="anxiety-card reveal delay-1">
+          <div class="anxiety-q">
+            <div class="anxiety-q-icon">Q</div>
+            <p class="anxiety-q-text">仕事が忙しくて定期的に通えないかも。週1回でも大丈夫？</p>
+          </div>
+          <div class="anxiety-a">
+            <div class="anxiety-a-icon">A</div>
+            <p class="anxiety-a-text">大丈夫です。<strong>完全予約制</strong>なので自分のスケジュールに合わせて予約するだけ。週1回でも毎日でも、あなたのペースで継続できます。</p>
+          </div>
+        </div>
+
+        <div class="anxiety-card reveal delay-2">
+          <div class="anxiety-q">
+            <div class="anxiety-q-icon">Q</div>
+            <p class="anxiety-q-text">スマートロックって難しそう…。機械が苦手でも大丈夫？</p>
+          </div>
+          <div class="anxiety-a">
+            <div class="anxiety-a-icon">A</div>
+            <p class="anxiety-a-text">とても簡単です。<strong>スマホのQRコードをかざすだけ</strong>で解錠されます。予約完了メールにQRが届くので、アプリのインストールも不要です。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- スタジオ写真バナー -->
+  <div class="studio-banner">
+    <div class="studio-banner-overlay">
+      <p class="studio-banner-label">REAL STUDIO INTERIOR</p>
+      <p class="studio-banner-name">STP dance academy</p>
+      <p class="studio-banner-sub">清潔感・プライベート空間・完全予約制</p>
+    </div>
+  </div>
+
+  <!-- はじめてでも大丈夫な理由 -->
+  <section class="reasons-section section">
+    <div class="section-inner">
+      <span class="sec-label reveal">WHY STP IS SAFE</span>
+      <h2 class="sec-title reveal delay-1">はじめての方に選ばれる<br>6つの理由</h2>
+      <p class="sec-sub reveal delay-2">不安をなくすために設計した仕組みと環境をご紹介します。</p>
+
+      <div class="reasons-list reveal delay-3">
+        <div class="reason-row">
+          <div class="reason-num-col">01</div>
+          <div class="reason-body">
+            <span class="reason-icon">🔑</span>
+            <div class="reason-text">
+              <h3>完全無人・スマートロック入室</h3>
+              <p>スタッフ不在のプライベート空間。QRコードをかざすだけで入退室できます。他の人の目を気にせず、のびのびと練習できます。</p>
+            </div>
+          </div>
+        </div>
+        <div class="reason-row">
+          <div class="reason-num-col">02</div>
+          <div class="reason-body">
+            <span class="reason-icon">📅</span>
+            <div class="reason-text">
+              <h3>完全予約制・時間を自由に選べる</h3>
+              <p>24時間いつでもWEB予約OK。仕事帰り・休日・朝活など、自分のライフスタイルに合わせて通えます。急なキャンセルにも柔軟に対応。</p>
+            </div>
+          </div>
+        </div>
+        <div class="reason-row">
+          <div class="reason-num-col">03</div>
+          <div class="reason-body">
+            <span class="reason-icon">🎁</span>
+            <div class="reason-text">
+              <h3>無料体験 → 入会ゼロ圧力</h3>
+              <p>まず無料で体験できます。体験後の入会は完全に任意。担当者からの電話・メールでの勧誘も一切ありません。自分のペースで判断できます。</p>
+            </div>
+          </div>
+        </div>
+        <div class="reason-row">
+          <div class="reason-num-col">04</div>
+          <div class="reason-body">
+            <span class="reason-icon">📱</span>
+            <div class="reason-text">
+              <h3>全操作スマホ完結</h3>
+              <p>予約・入退室・お問い合わせ・入会手続きまで、すべてスマートフォンで完了。来店不要、書類不要でスマートに始められます。</p>
+            </div>
+          </div>
+        </div>
+        <div class="reason-row">
+          <div class="reason-num-col">05</div>
+          <div class="reason-body">
+            <span class="reason-icon">📷</span>
+            <div class="reason-text">
+              <h3>24時間防犯カメラ完備</h3>
+              <p>スタジオ内外に防犯カメラを設置。無人でも安心の環境です。緊急時はチャットまたはお電話でスタッフがサポートします。</p>
+            </div>
+          </div>
+        </div>
+        <div class="reason-row">
+          <div class="reason-num-col">06</div>
+          <div class="reason-body">
+            <span class="reason-icon">💃</span>
+            <div class="reason-text">
+              <h3>K-POP・HIPHOPに特化</h3>
+              <p>好きなアーティストの振り付けで楽しく上達。好きな音楽があると練習のモチベーションが続きます。キッズコースも完備。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STARTまでの流れ -->
+  <section class="flow-section section" id="flow">
+    <div class="section-inner">
+      <span class="sec-label reveal">HOW TO START</span>
+      <h2 class="sec-title reveal delay-1">STARTまでの流れ</h2>
+      <p class="sec-sub reveal delay-2">
+        4つのステップで、今日から始められます。<br>
+        来店は体験当日のみ。手続きはすべてオンラインで完結。
+      </p>
+
+      <div class="flow-timeline">
+        <div class="flow-step reveal delay-1">
+          <div class="flow-step-dot">1</div>
+          <p class="flow-step-time">STEP 01 — 1分で完了</p>
+          <h3 class="flow-step-title">このページから無料体験を予約</h3>
+          <p class="flow-step-desc">ページ下部のフォームにお名前・連絡先・希望日時を入力するだけ。24時間いつでも受付しています。</p>
+          <p class="flow-step-note">💡 「何を着ていけばいいか」「何を用意すれば？」など不安なことはフォームの備考欄に書いてください。</p>
+        </div>
+
+        <div class="flow-step reveal delay-2">
+          <div class="flow-step-dot">2</div>
+          <p class="flow-step-time">STEP 02 — 当日まで</p>
+          <h3 class="flow-step-title">確認メール＋QRコードが届く</h3>
+          <p class="flow-step-desc">ご登録のメールアドレスに予約確認と入室用QRコードが届きます。スクリーンショットを保存しておくだけでOKです。</p>
+          <p class="flow-step-safe">✅ アプリのインストール不要。メールに届くQRをかざすだけで入室できます。</p>
+        </div>
+
+        <div class="flow-step reveal delay-3">
+          <div class="flow-step-dot">3</div>
+          <p class="flow-step-time">STEP 03 — 体験当日</p>
+          <h3 class="flow-step-title">スタジオで自由に体験</h3>
+          <p class="flow-step-desc">動きやすい服装でお越しください（ジーンズ以外なら何でもOK）。QRコードで解錠して入室し、自由に練習をお楽しみください。</p>
+          <p class="flow-step-note">💡 体験時間は60分です。スタッフは常駐していませんが、万が一の際はLINEまたは電話でサポートします。</p>
+        </div>
+
+        <div class="flow-step reveal delay-4">
+          <div class="flow-step-dot">4</div>
+          <p class="flow-step-time">STEP 04 — 体験後いつでも</p>
+          <h3 class="flow-step-title">気に入ったらオンラインで入会</h3>
+          <p class="flow-step-desc">体験後に気に入っていただけたら、スマホから入会手続きが完了します。来店不要・書類不要です。「もう少し考えたい」はもちろん大歓迎。</p>
+          <p class="flow-step-safe">✅ 入会後のキャンセルも月単位で柔軟に対応しています。気軽に始めてみてください。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- コース一覧 -->
+  <section class="courses-section section" id="courses">
+    <div class="section-inner">
+      <span class="sec-label reveal">COURSES</span>
+      <h2 class="sec-title reveal delay-1">コース一覧</h2>
+      <p class="sec-sub reveal delay-2">全コース「はじめての方歓迎」でお選びいただけます。</p>
+
+      <div class="courses-table-wrap reveal delay-3">
+        <table class="courses-table">
+          <thead>
+            <tr>
+              <th>コース名</th>
+              <th>対象</th>
+              <th>内容</th>
+              <th>おすすめ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>K-POP</strong></td>
+              <td><span class="course-badge badge-beginner">初心者OK</span></td>
+              <td>人気K-POPアーティストの振り付けを中心に練習</td>
+              <td>K-POP好き・SNS映えしたい方</td>
+            </tr>
+            <tr>
+              <td><strong>HIPHOP</strong></td>
+              <td><span class="course-badge badge-beginner">初心者OK</span></td>
+              <td>HIPHOPの基礎から応用まで楽しくステップアップ</td>
+              <td>自由なスタイルで踊りたい方</td>
+            </tr>
+            <tr>
+              <td><strong>女性向けコース</strong></td>
+              <td><span class="course-badge badge-beginner">初心者OK</span></td>
+              <td>女性に人気のダンスジャンルをわかりやすく指導</td>
+              <td>女性一人でも安心して通いたい方</td>
+            </tr>
+            <tr>
+              <td><strong>キッズコース</strong></td>
+              <td><span class="course-badge badge-kids">子ども向け</span></td>
+              <td>お子様の年齢・レベルに合わせた楽しいレッスン</td>
+              <td>お子様・保護者の方も一緒に</td>
+            </tr>
+            <tr>
+              <td><strong>フリー練習</strong></td>
+              <td><span class="course-badge badge-all">全レベル</span></td>
+              <td>自由練習。好きな動画を見ながら自分のペースで</td>
+              <td>まずスタジオに慣れたい方</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section section" id="faq">
+    <div class="section-inner">
+      <span class="sec-label reveal">FAQ</span>
+      <h2 class="sec-title reveal delay-1">よくある質問</h2>
+      <p class="sec-sub reveal delay-2">はじめての方から特に多いご質問をまとめました。</p>
+
+      <div class="faq-list reveal delay-3">
+        <div class="faq-item">
+          <button class="faq-question">
+            <div class="faq-q-badge">Q</div>
+            <p class="faq-q-text">ダンス未経験でも本当に大丈夫ですか？</p>
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、まったく問題ありません。STPは「Start to Pro」という名前の通り、ゼロから始める方のために設計されています。初めてのダンスを楽しく始められる環境と仕組みを整えていますので、ご安心ください。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <div class="faq-q-badge">Q</div>
+            <p class="faq-q-text">無料体験の費用は本当に0円ですか？</p>
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、完全無料です。体験当日に料金をいただくことも、クレジットカードの登録を求めることも一切ありません。入会しないと決めた場合でも、一切の費用は発生しません。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <div class="faq-q-badge">Q</div>
+            <p class="faq-q-text">何を着て行けばいいですか？特別な道具は必要ですか？</p>
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              動きやすい服装であれば何でも構いません。スウェット・ジャージ・スポーツウェアなどラフなスタイルでお越しください。体験の際は特別な道具も必要ありません。スニーカーが1足あれば十分です。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <div class="faq-q-badge">Q</div>
+            <p class="faq-q-text">無人スタジオとは何ですか？安全ですか？</p>
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              常駐スタッフがいないスタジオです。スマートフォンのQRコードで入退室管理を行い、スタジオ内外には防犯カメラを完備しています。万が一の際はLINEまたはお電話でスタッフがリモートサポートしますので、安心してご利用いただけます。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <div class="faq-q-badge">Q</div>
+            <p class="faq-q-text">月に何回通えばいいですか？義務はありますか？</p>
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              通う回数に義務はありません。週1回でも月2回でも、自分のペースで大丈夫です。完全予約制なので、スケジュールが合う時間に予約するだけ。忙しい月はお休みしてもOKです。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <div class="faq-q-badge">Q</div>
+            <p class="faq-q-text">体験後、しつこい勧誘の電話やメールは来ますか？</p>
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              一切ありません。体験後は自動送信のアンケートメールのみお送りします。電話や個別メールでの勧誘は行っていません。無人システムのため、スタッフから直接コンタクトが取られることもありません。
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <div class="faq-q-badge">Q</div>
+            <p class="faq-q-text">子供と一緒に通えますか？</p>
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              はい、キッズコースをご用意しています。お子様と保護者の方が一緒に楽しめるコースもあります。年齢・レベルに合わせた内容をご案内しますので、まずはお気軽にお問い合わせください。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="cta">
+    <div class="cta-inner">
+      <span class="cta-badge reveal">🎁 無料体験受付中</span>
+      <h2 class="cta-title reveal delay-1">
+        "始めたい"という<br>
+        その気持ちで、<span class="accent">十分です。</span>
+      </h2>
+      <p class="cta-sub reveal delay-2">
+        経験も自信もなくていい。<br>
+        STPはそこからスタートする人のためにあります。<br>
+        まず一度、体験してみてください。
+      </p>
+      <a href="#contact" class="btn btn-white btn-lg reveal delay-3">無料体験を予約する（完全無料）</a>
+      <div class="cta-guarantee reveal delay-4">
+        <span>✓</span> 勧誘なし &nbsp;·&nbsp; <span>✓</span> 費用一切なし &nbsp;·&nbsp; <span>✓</span> 来店は体験当日のみ
+      </div>
+    </div>
+  </section>
+
+  <!-- フォーム -->
+  <section class="form-section" id="contact">
+    <div class="section-inner">
+      <div style="text-align:center; margin-bottom:8px;">
+        <span class="sec-label reveal">FREE TRIAL</span>
+      </div>
+      <h2 class="sec-title reveal delay-1" style="text-align:center;">無料体験のお申し込み</h2>
+      <p class="sec-sub reveal delay-2" style="text-align:center;">24時間受付 · 返信は1〜2営業日以内</p>
+
+      <div class="form-wrap reveal delay-3">
+        <form class="contact-form">
+          <div class="form-group">
+            <label>お名前 <span class="req">*</span></label>
+            <input type="text" placeholder="山田 花子" required>
+          </div>
+          <div class="form-group">
+            <label>電話番号</label>
+            <input type="tel" placeholder="090-0000-0000">
+          </div>
+          <div class="form-group">
+            <label>メールアドレス <span class="req">*</span></label>
+            <input type="email" placeholder="example@email.com" required>
+          </div>
+          <div class="form-group">
+            <label>ご希望のコース</label>
+            <select>
+              <option value="">選択してください（わからなければ「未定」で大丈夫）</option>
+              <option>K-POP</option>
+              <option>HIPHOP</option>
+              <option>女性向けコース</option>
+              <option>キッズコース</option>
+              <option>フリー練習</option>
+              <option>まだ決めていない（体験してから決める）</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>ダンス経験</label>
+            <select>
+              <option value="">選択してください</option>
+              <option>まったくはじめて（経験ゼロ）</option>
+              <option>少しだけ経験あり</option>
+              <option>ある程度やっていた</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>不安なこと・聞きたいこと</label>
+            <textarea placeholder="「一人でも大丈夫？」「何を着ていけばいい？」など、気になることを何でもどうぞ。"></textarea>
+          </div>
+          <button type="submit" class="btn-submit">無料体験を申し込む →</button>
+          <p class="form-note">
+            ※ これはデモフォームです。送信されません。<br>
+            個人情報は体験予約の管理のみに使用します。
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer class="site-footer">
+    <p class="footer-logo">STP dance academy</p>
+    <p class="footer-stp">START TO PRO — "始めたい"を"できる"に変える</p>
+    <p class="footer-copy">© 2025 STP dance academy. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // IntersectionObserver — scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('active');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => revealObs.observe(el));
+
+    // Header scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const btn    = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+      btn.addEventListener('click', () => {
+        const open = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(other => {
+          other.classList.remove('open');
+          const a = other.querySelector('.faq-answer');
+          if (a) a.style.maxHeight = null;
+        });
+        if (!open) {
+          item.classList.add('open');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' });
+      });
+    });
+
+    // Form submit
+    const form = document.querySelector('.contact-form');
+    if (form) {
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        const btn = form.querySelector('.btn-submit');
+        btn.textContent = '送信しました！';
+        btn.disabled = true;
+        btn.style.opacity = '0.6';
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LPデザイン提案 | STP dance academy</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ---- 提案トップページ専用スタイル ---- */
+    :root {
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --border: rgba(255,255,255,0.08);
+      --text: #f0f0f0;
+      --muted: rgba(255,255,255,0.45);
+      --accent: #b91c4a;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ---- ヘッダー ---- */
+    .top-header {
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .top-header .logo img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    /* ---- ヒーロー ---- */
+    .hero {
+      padding: 72px 24px 56px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 50%,
+        rgba(185,28,74,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-label {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 5px 16px;
+      border-radius: 50px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(1.9rem, 7vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      line-height: 1.9;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ---- カードグリッド ---- */
+    .cards-section {
+      padding: 0 24px 96px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    @media (min-width: 640px) {
+      .cards-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .lp-card {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1),
+                  box-shadow 0.35s ease,
+                  border-color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .lp-card:hover {
+      transform: translateY(-10px) scale(1.01);
+      box-shadow: 0 24px 56px rgba(0,0,0,0.5);
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    /* カードプレビューエリア */
+    .card-preview {
+      height: 200px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* COOL プレビュー */
+    .preview-cool {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a0510 50%, #2a0518 100%);
+    }
+    .preview-cool::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 60% 40%, rgba(185,28,74,0.35) 0%, transparent 65%);
+    }
+    .preview-cool .preview-text {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 0 40px rgba(185,28,74,0.8);
+    }
+
+    /* CUTE プレビュー */
+    .preview-cute {
+      background: linear-gradient(135deg, #fff0f5 0%, #ffd6e5 50%, #ffb3cc 100%);
+    }
+    .preview-cute::before {
+      content: '';
+      position: absolute;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: rgba(255,200,220,0.6);
+      top: -30px; right: -20px;
+    }
+    .preview-cute::after {
+      content: '';
+      position: absolute;
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: rgba(255,180,210,0.5);
+      bottom: -20px; left: 20px;
+    }
+    .preview-cute .preview-text {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      color: #d6478a;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 12px rgba(214,71,138,0.3);
+    }
+
+    /* BEGINNER プレビュー */
+    .preview-beginner {
+      background: linear-gradient(135deg, #e8f4fd 0%, #cce4f7 50%, #b3d8f5 100%);
+    }
+    .preview-beginner::before {
+      content: '';
+      position: absolute;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: rgba(100,180,255,0.3);
+      bottom: -20px; right: 30px;
+    }
+    .preview-beginner .preview-text {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      color: #1a72c4;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 12px rgba(26,114,196,0.25);
+    }
+
+    /* カード本文 */
+    .card-body {
+      padding: 24px 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .card-tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      font-weight: 700;
+      margin-bottom: 10px;
+      opacity: 0.55;
+    }
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+    }
+    .card-desc {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.75;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+    .card-link {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .card-link:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    .link-cool      { background: #b91c4a; color: #fff; }
+    .link-cute      { background: #e8649a; color: #fff; }
+    .link-beginner  { background: #2979d4; color: #fff; }
+
+    /* ---- フッター ---- */
+    .index-footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <header class="top-header">
+    <div class="logo">
+      <span style="font-size:1.15rem; font-weight:900; color:#b91c4a; letter-spacing:0.04em;">STP dance academy</span>
+    </div>
+  </header>
+
+  <!-- ヒーロー -->
+  <section class="hero">
+    <p class="hero-label reveal">LP DESIGN PROPOSAL</p>
+    <h1 class="reveal delay-1">
+      LP デザイン<span>提案</span>
+    </h1>
+    <p class="reveal delay-2">
+      STP dance academy 様向けに制作した<br>
+      3つのデザインバリエーションをご覧ください。<br>
+      ターゲット・雰囲気に合わせてお選びいただけます。
+    </p>
+  </section>
+
+  <!-- カードグリッド -->
+  <section class="cards-section">
+    <div class="cards-grid">
+
+      <!-- COOL -->
+      <div class="lp-card reveal delay-1" data-tilt>
+        <div class="card-preview preview-cool">
+          <span class="preview-text">COOL</span>
+        </div>
+        <div class="card-body">
+          <p class="card-tag">STYLE 01 — COOL &amp; STYLISH</p>
+          <h2 class="card-title">かっこいい系LP</h2>
+          <p class="card-desc">
+            黒×ワインレッドのラグジュアリーデザイン。
+            大人女性・K-POP好きをターゲットに、高級感とスタイルを全面に。
+            「通いたい」ではなく「ここじゃないとダメ」と感じさせる強いブランド訴求。
+          </p>
+          <a href="cool.html" class="card-link link-cool">このデザインを見る →</a>
+        </div>
+      </div>
+
+      <!-- CUTE -->
+      <div class="lp-card reveal delay-2" data-tilt>
+        <div class="card-preview preview-cute">
+          <span class="preview-text">CUTE</span>
+        </div>
+        <div class="card-body">
+          <p class="card-tag">STYLE 02 — CUTE &amp; FRIENDLY</p>
+          <h2 class="card-title">かわいい系LP</h2>
+          <p class="card-desc">
+            白×ピンク×ベージュの柔らかいデザイン。
+            女性初心者が「怖くない」「入りやすい」と感じる親しみやすいUI。
+            丸みのあるカードと明るいトーンで「楽しそう！」を伝えます。
+          </p>
+          <a href="cute.html" class="card-link link-cute">このデザインを見る →</a>
+        </div>
+      </div>
+
+      <!-- BEGINNER -->
+      <div class="lp-card reveal delay-3" data-tilt>
+        <div class="card-preview preview-beginner">
+          <span class="preview-text">SAFE</span>
+        </div>
+        <div class="card-body">
+          <p class="card-tag">STYLE 03 — BEGINNER FRIENDLY</p>
+          <h2 class="card-title">初心者安心系LP</h2>
+          <p class="card-desc">
+            清潔感のある青×白ベースで「安心・信頼」を最優先に設計。
+            よくある不安を先回りして解消し、入会の流れを丁寧に説明。
+            「私でもできるかも」という背中を押すコンバージョン設計。
+          </p>
+          <a href="beginner.html" class="card-link link-beginner">このデザインを見る →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- スタジオ実写バナー（studio-02: STPロゴウォール正面） -->
+  <section style="
+    height: 200px;
+    background: url('images/studio-02.JPG') center 40%/cover no-repeat;
+    position: relative; overflow: hidden;
+  ">
+    <div style="
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(8,8,8,0.65) 0%, rgba(8,8,8,0.35) 50%, rgba(8,8,8,0.65) 100%);
+      display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px;
+    ">
+      <p style="font-size:0.65rem; letter-spacing:0.3em; color:rgba(255,255,255,0.45);">REAL STUDIO INTERIOR</p>
+      <p style="font-size:0.75rem; letter-spacing:0.18em; color:rgba(255,255,255,0.6); font-weight:700;">STP dance academy</p>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer class="index-footer">
+    <p style="font-size:0.7rem; letter-spacing:0.18em; margin-bottom:6px; opacity:0.5;">STP = START TO PRO — "始めたい"を"できる"に変える</p>
+    <p>© 2025 STP dance academy — LP デザインサンプル</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
