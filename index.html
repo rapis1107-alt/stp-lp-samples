@@ -575,6 +575,9 @@
       padding: 32px 36px; background: var(--surface);
       margin-bottom: 24px;
     }
+    @media (max-width: 640px) {
+      .ticket-intro { flex-direction: column; align-items: flex-start; gap: 12px; padding: 24px 20px; }
+    }
     .ticket-big {
       font-size: clamp(2.8rem, 6vw, 4rem); font-weight: 900;
       color: var(--red); line-height: 1; white-space: nowrap;
