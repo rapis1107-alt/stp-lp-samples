@@ -608,32 +608,80 @@
     }
 
     /* ====== NARROW ====== */
-    .narrow { background: var(--bg); }
+    .narrow { background: var(--bg); overflow: hidden; }
+    .narrow-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .narrow-inner { grid-template-columns: 576px 1fr; }
+    }
     .narrow-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px; max-width: 900px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      padding-right: 4%;
+    }
+    .narrow-img {
+      display: none;
+      height: 480px;
+    }
+    @media (min-width: 768px) { .narrow-img { display: block; } }
+    .narrow-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+      filter: brightness(0.65) contrast(1.1) saturate(0.55);
+      mask-image: linear-gradient(to left, transparent 0%, rgba(0,0,0,0.6) 18%, black 40%, black 100%);
+      -webkit-mask-image: linear-gradient(to left, transparent 0%, rgba(0,0,0,0.6) 18%, black 40%, black 100%);
     }
     .narrow-item {
       display: flex; align-items: flex-start; gap: 16px;
-      padding: 24px; border: 1px solid var(--border); border-radius: 8px;
+      padding: 29px; border: 1px solid var(--border); border-radius: 8px;
       background: var(--surface);
     }
     .narrow-check {
-      width: 28px; height: 28px; border-radius: 50%;
+      width: 32px; height: 32px; border-radius: 50%;
       background: var(--red-glow); border: 1px solid var(--red);
       display: flex; align-items: center; justify-content: center;
-      color: var(--red); font-weight: 900; font-size: 0.8rem;
+      color: var(--red); font-weight: 900; font-size: 0.9rem;
       flex-shrink: 0;
     }
-    .narrow-item p { font-size: 0.88rem; line-height: 1.75; }
+    .narrow-item p { font-size: 1.06rem; line-height: 1.75; }
 
     /* ====== HOW TO ====== */
-    .howto { background: var(--mid); }
+    .howto { background: var(--mid); overflow: hidden; }
+    .howto .section-sub { margin-bottom: 28px; }
+    .howto-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .howto-inner { grid-template-columns: 1fr 640px; }
+    }
+    .howto-steps-wrap { padding-left: 2%; }
+    @media (max-width: 767px) { .howto-steps-wrap { padding-left: 0; } }
+    .howto-img {
+      display: none;
+      height: 420px;
+    }
+    @media (min-width: 768px) { .howto-img { display: block; } }
+    .howto-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+      filter: brightness(0.68) contrast(1.1) saturate(0.6);
+      mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 18%, black 42%, black 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.6) 18%, black 42%, black 100%);
+    }
     .steps {
       display: flex; gap: 0;
       flex-direction: column;
-      max-width: 680px;
     }
     @media (min-width: 640px) {
       .steps { flex-direction: row; }
@@ -641,7 +689,7 @@
     .step {
       flex: 1; position: relative;
       display: flex; flex-direction: column; align-items: center;
-      text-align: center; padding: 0 16px 48px;
+      text-align: center; padding: 0 10px 48px;
     }
     .step:not(:last-child)::after {
       content: '';
@@ -1130,30 +1178,35 @@
     <div class="section-divider reveal"></div>
     <h2 class="section-title reveal">こんな方に選ばれています</h2>
     <p class="section-sub reveal delay-1">当てはまる方、まずは無料体験から。</p>
-    <div class="narrow-list">
-      <div class="narrow-item reveal delay-1">
-        <div class="narrow-check">✓</div>
-        <p>K-POPが好きで、自分も踊れるようになりたい</p>
+    <div class="narrow-inner">
+      <div class="narrow-img reveal delay-2">
+        <img src="images/narrow-shoes.png" alt="ダンスシューズを履く">
       </div>
-      <div class="narrow-item reveal delay-2">
-        <div class="narrow-check">✓</div>
-        <p>仕事帰りにサクッと通える場所を探している</p>
-      </div>
-      <div class="narrow-item reveal delay-1">
-        <div class="narrow-check">✓</div>
-        <p>運動は苦手だけど、楽しく続けたい</p>
-      </div>
-      <div class="narrow-item reveal delay-2">
-        <div class="narrow-check">✓</div>
-        <p>人目を気にせず、自分のペースで練習したい</p>
-      </div>
-      <div class="narrow-item reveal delay-3">
-        <div class="narrow-check">✓</div>
-        <p>子供に習い事をさせたい</p>
-      </div>
-      <div class="narrow-item reveal delay-3">
-        <div class="narrow-check">✓</div>
-        <p>楽しみながらダイエット・体を引き締めたい</p>
+      <div class="narrow-list">
+        <div class="narrow-item reveal delay-1">
+          <div class="narrow-check">✓</div>
+          <p>K-POPが好きで、自分も踊れるようになりたい</p>
+        </div>
+        <div class="narrow-item reveal delay-2">
+          <div class="narrow-check">✓</div>
+          <p>仕事帰りにサクッと通える場所を探している</p>
+        </div>
+        <div class="narrow-item reveal delay-1">
+          <div class="narrow-check">✓</div>
+          <p>運動は苦手だけど、楽しく続けたい</p>
+        </div>
+        <div class="narrow-item reveal delay-2">
+          <div class="narrow-check">✓</div>
+          <p>人目を気にせず、自分のペースで練習したい</p>
+        </div>
+        <div class="narrow-item reveal delay-3">
+          <div class="narrow-check">✓</div>
+          <p>子供に習い事をさせたい</p>
+        </div>
+        <div class="narrow-item reveal delay-3">
+          <div class="narrow-check">✓</div>
+          <p>楽しみながらダイエット・体を引き締めたい</p>
+        </div>
       </div>
     </div>
   </section>
@@ -1164,34 +1217,41 @@
     <div class="section-divider reveal"></div>
     <h2 class="section-title reveal">はじめ方はかんたん</h2>
     <p class="section-sub reveal delay-1">スマホだけで完結。当日は手ぶらでOK。</p>
-    <div class="steps">
-      <div class="step reveal delay-1">
-        <div class="step-num">1</div>
-        <div>
-          <h3>無料体験を予約</h3>
-          <p>フォームから24時間受付。希望日時を選ぶだけ。</p>
+    <div class="howto-inner">
+      <div class="howto-steps-wrap">
+        <div class="steps">
+          <div class="step reveal delay-1">
+            <div class="step-num">1</div>
+            <div>
+              <h3>無料体験を予約</h3>
+              <p>フォームから24時間受付。<br>希望日時を選ぶだけ。</p>
+            </div>
+          </div>
+          <div class="step reveal delay-2">
+            <div class="step-num">2</div>
+            <div>
+              <h3>入室キーが届く</h3>
+              <p>予約確定後、スマホに<br>入室コードが送られます。</p>
+            </div>
+          </div>
+          <div class="step reveal delay-3">
+            <div class="step-num">3</div>
+            <div>
+              <h3>スタジオへ入室</h3>
+              <p>スマートロックに<br>かざすだけ。受付不要。</p>
+            </div>
+          </div>
+          <div class="step reveal delay-4">
+            <div class="step-num">4</div>
+            <div>
+              <h3>あとは踊るだけ</h3>
+              <p>動きやすい服装でOK。<br>存分に楽しみましょう。</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="step reveal delay-2">
-        <div class="step-num">2</div>
-        <div>
-          <h3>解錠キーが届く</h3>
-          <p>予約確定後、スマホに入室コードが送られます。</p>
-        </div>
-      </div>
-      <div class="step reveal delay-3">
-        <div class="step-num">3</div>
-        <div>
-          <h3>スタジオへ入室</h3>
-          <p>スマートロックにかざすだけ。受付不要。</p>
-        </div>
-      </div>
-      <div class="step reveal delay-4">
-        <div class="step-num">4</div>
-        <div>
-          <h3>レッスンスタート</h3>
-          <p>動きやすい服装でOK。存分に踊りましょう。</p>
-        </div>
+      <div class="howto-img reveal delay-2">
+        <img src="images/howto-smartlock.png" alt="スマートロックでかんたん入室">
       </div>
     </div>
   </section>
