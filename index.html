@@ -127,6 +127,28 @@
     .hero-scroll span {
       font-size: 0.6rem; letter-spacing: 0.3em; color: var(--muted);
     }
+    .hero-dancer {
+      position: absolute; z-index: 2;
+      left: -8.5%; bottom: 0;
+      height: 88%;
+      width: auto;
+      object-fit: contain;
+      object-position: bottom;
+      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.85) 60%, transparent 100%),
+                          linear-gradient(to right, transparent 0%, rgba(0,0,0,1) 30%);
+      -webkit-mask-composite: source-in;
+      mask-image: linear-gradient(to top, rgba(0,0,0,0.85) 60%, transparent 100%),
+                  linear-gradient(to right, transparent 0%, rgba(0,0,0,1) 30%);
+      mask-composite: intersect;
+      pointer-events: none;
+    }
+    @media (max-width: 768px) {
+      .hero-dancer {
+        height: 55%;
+        left: -2%;
+        opacity: 0.45;
+      }
+    }
     .scroll-line {
       width: 1px; height: 48px;
       background: linear-gradient(to bottom, var(--red), transparent);
@@ -480,7 +502,17 @@
     }
 
     /* ====== COURSES ====== */
-    .courses { background: var(--bg); }
+    .courses { background: var(--bg); position: relative; overflow: hidden; }
+    .courses::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('images/logo-bg.jpeg') center/70% no-repeat;
+      filter: invert(1);
+      mix-blend-mode: screen;
+      opacity: 0.13;
+      pointer-events: none;
+    }
     .courses-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -676,14 +708,14 @@
     }
     .narrow-item {
       display: flex; align-items: center; gap: 14px;
-      padding: 19px 22px; border: 1px solid rgba(255,255,255,0.14); border-radius: 8px;
+      padding: 28px 22px; border: 1px solid rgba(255,255,255,0.14); border-radius: 8px;
       background: rgba(18,18,18,0.82);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
     }
     @media (min-width: 768px) {
       .narrow-item {
-        padding: 26px 28px;
+        padding: 39px 28px;
         background: var(--surface);
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
@@ -772,7 +804,32 @@
 
     /* ====== FAQ ====== */
     .faq { background: var(--bg); }
-    .faq-list { max-width: 720px; display: flex; flex-direction: column; gap: 2px; }
+    .faq-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    @media (min-width: 900px) {
+      .faq-inner { grid-template-columns: 1fr 420px; gap: 56px; align-items: start; }
+    }
+    .faq-list { display: flex; flex-direction: column; gap: 2px; }
+    .faq-photo {
+      display: none;
+    }
+    @media (min-width: 900px) {
+      .faq-photo {
+        display: block;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .faq-photo img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+    }
     .faq-item {
       border: 1px solid var(--border); border-radius: 6px;
       background: var(--surface); overflow: hidden;
@@ -829,12 +886,35 @@
     /* ====== ACCESS ====== */
     .access { background: var(--bg); }
     .access-inner {
-      display: grid; gap: 40px;
+      display: grid; gap: 24px;
       grid-template-columns: 1fr;
-      max-width: 800px;
     }
     @media (min-width: 640px) {
       .access-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (min-width: 960px) {
+      .access-inner { grid-template-columns: 1fr 1fr; gap: 28px; overflow: hidden; }
+      .access-visuals {
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        gap: 8px;
+        transform: translateX(-10%);
+        width: 110%;
+      }
+    }
+    .access-photos {
+      height: 360px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    @media (max-width: 959px) {
+      .access-photos { height: 240px; }
+    }
+    .access-photos img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: right top;
+      display: block;
     }
     .access-info dt {
       font-size: 0.65rem; letter-spacing: 0.2em; color: var(--red);
@@ -854,12 +934,10 @@
     .access-map {
       border-radius: 8px; overflow: hidden;
       border: 1px solid var(--border);
-      background: var(--surface);
-      height: 240px;
-      display: flex; align-items: center; justify-content: center;
+      height: 360px;
     }
-    .access-map p {
-      font-size: 0.78rem; color: var(--muted); letter-spacing: 0.1em; text-align: center;
+    .access-map iframe {
+      width: 100%; height: 100%; border: 0; display: block;
     }
 
     /* ====== CTA BAND ====== */
@@ -975,6 +1053,7 @@
       </video>
     </div>
     <div class="hero-overlay"></div>
+    <img src="images/dancer-hero.png" alt="" class="hero-dancer">
     <div class="hero-content">
       <p class="hero-label reveal">DANCE ACADEMY IN 尼崎</p>
       <h1 class="hero-title reveal delay-1">
@@ -1324,6 +1403,7 @@
     <div class="section-divider reveal"></div>
     <h2 class="section-title reveal">よくある質問</h2>
     <p class="section-sub reveal delay-1">気になることがあればお気軽にお問い合わせください。</p>
+    <div class="faq-inner">
     <div class="faq-list">
       <div class="faq-item reveal delay-1">
         <button class="faq-q">
@@ -1374,6 +1454,10 @@
         <div class="faq-a">チケットの有効期限については、予約システム（山田太郎）の申し込みページでご確認ください。</div>
       </div>
     </div>
+    <div class="faq-photo">
+      <img src="images/faq-studio.jpeg" alt="STP dance academy スタジオ内観">
+    </div>
+    </div>
   </section>
 
   <!-- ACCESS -->
@@ -1402,8 +1486,16 @@
           </a>
         </dd>
       </dl>
-      <div class="access-map reveal delay-2">
-        <p>📍 MAP<br><span style="font-size:0.65rem; margin-top:6px; display:block;">兵庫県尼崎市東園田町4丁目95-10</span></p>
+      <div class="access-visuals">
+        <div class="access-map reveal delay-2">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1631.8!2d135.4468916!3d34.7532039!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000ef00216627d3%3A0xf6e2f7acf45bfd34!2sSTP+dance+academy!5e0!3m2!1sja!2sjp!4v1"
+            allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <div class="access-photos reveal delay-3">
+          <img src="images/access-station.png" alt="園田駅">
+        </div>
       </div>
     </div>
   </section>
@@ -1459,6 +1551,22 @@
       floatCta.classList.toggle('visible', !entries[0].isIntersecting);
     }, { threshold: 0 });
     heroObs.observe(heroCta);
+
+    // FAQ photo height sync
+    const faqList = document.querySelector('.faq-list');
+    const faqPhoto = document.querySelector('.faq-photo');
+    if (faqList && faqPhoto) {
+      const syncFaqPhoto = () => {
+        if (window.innerWidth >= 900) {
+          faqPhoto.style.height = faqList.offsetHeight + 'px';
+        } else {
+          faqPhoto.style.height = '';
+        }
+      };
+      new ResizeObserver(syncFaqPhoto).observe(faqList);
+      window.addEventListener('resize', syncFaqPhoto);
+      syncFaqPhoto();
+    }
 
     // FAQ accordion
     document.querySelectorAll('.faq-q').forEach(btn => {
